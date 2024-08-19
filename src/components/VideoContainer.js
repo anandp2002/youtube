@@ -19,7 +19,7 @@ function VideoContainer() {
       {videos.length > 0 ? (
         videos.map((video) => (
           <Link key={video.id} to={'/watch?v=' + video.id}>
-            <VideoCard key={video.id} info={video} />
+            <VideoCard info={video} />
           </Link>
         ))
       ) : (
