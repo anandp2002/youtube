@@ -15,7 +15,7 @@ function VideoContainer() {
     getVideos();
   }, []);
   return (
-    <div className="flex flex-wrap justify-center">
+    <div className="flex flex-wrap justify-center mt-12">
       {videos.length > 0 ? (
         videos.map((video) => (
           <Link key={video.id} to={'/watch?v=' + video.id}>

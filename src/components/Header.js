@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleMenu } from '../utils/appSlice';
 import { YOUTUBE_SEARCH_API } from '../utils/constants';
 import { cacheResults } from '../utils/searchSlice';
+import menu from '../images/menu.png';
+import searchLens from '../images/searchLens.png';
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -50,17 +52,17 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-white shadow-md">
-      <div className="grid grid-flow-col py-2 my-1">
+    <div className="bg-red-100 shadow-md fixed top-0 left-0 right-0 z-50 ">
+      <div className="grid grid-flow-col py-2 my-1 ml-1">
         {/* Menu and Logo */}
         <div className="col-span-1 flex items-center">
           <img
             onClick={toggleMenuHandler}
-            className="h-5 cursor-pointer"
+            className="h-6 cursor-pointer"
             alt="Toggle Menu"
-            src="https://w7.pngwing.com/pngs/78/540/png-transparent-computer-icons-hamburger-button-menu-menu-desktop-wallpaper-menu-line.png"
+            src={menu}
           />
-          <a href="/" className="ml-2">
+          <a href="/" className="ml-1">
             <img
               className="h-5"
               alt="YouTube Logo"
@@ -71,18 +73,18 @@ const Header = () => {
 
         {/* Search Bar */}
         <div className="col-span-10">
-          <div className="">
+          <div className="flex">
             <input
               type="text"
-              className="h-10 border border-gray-400 w-9/12 rounded-l-full p-2"
+              className="h-10 bg-gray-100 border border-gray-400 w-9/12 rounded-l-full p-2 pl-3 focus:outline-none focus:border-gray-600"
               value={searchQuery}
               placeholder="Search"
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => setShowSuggestions(true)}
               onBlur={() => setShowSuggestions(false)}
             />
-            <button className="h-10 border border-gray-400 rounded-r-full px-4 bg-gray-200">
-              🔍
+            <button className="h-10 border border-gray-400 rounded-r-full px-3 bg-gray-100 hover:bg-gray-200">
+              <img className="h-8" src={searchLens} alt="search" />
             </button>
           </div>
 
@@ -106,7 +108,7 @@ const Header = () => {
         {/* User Icon */}
         <div className="col-span-1 flex items-center justify-center">
           <img
-            className="h-6"
+            className="h-6 pr-2"
             alt="User Avatar"
             src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png"
           />

@@ -15,10 +15,11 @@ const WatchPage = () => {
   const videoId = searchParams.get('v');
 
   return (
-    <div className="w-full">
-      <div className="flex w-full">
-        <div className="p-4">
+    <div className="w-full mt-20 bg-slate-900">
+      <div className="flex w-full ">
+        <div className="pl-4">
           <iframe
+            className=" rounded-lg mt-2"
             width="900"
             height="506"
             src={'https://www.youtube.com/embed/' + videoId}
@@ -29,7 +30,7 @@ const WatchPage = () => {
             allowFullScreen
           ></iframe>
         </div>
-        <div className="w-full">
+        <div className="w-full mx-6 mt-0">
           <LiveChat />
         </div>
       </div>

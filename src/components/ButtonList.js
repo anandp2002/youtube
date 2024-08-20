@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from './Button';
+import { useSelector } from 'react-redux';
 
 const buttons = [
   'All',
@@ -27,10 +28,13 @@ const buttons = [
   'React',
 ];
 function ButtonList() {
+  const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
   return (
     <div
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-      className="flex w-full overflow-x-scroll overflow-y-hidden whitespace-nowrap"
+      className={`flex overflow-x-scroll overflow-y-hidden whitespace-nowrap fixed right-0 top-16 p-3 bg-orange-200 ${
+        isMenuOpen ? 'left-40' : 'left-0'
+      }`}
     >
       {buttons.map((button, index) => (
         <Button key={index} name={button} />
