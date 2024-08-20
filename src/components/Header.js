@@ -25,27 +25,25 @@ const Header = () => {
         getSearchSuggestions();
       }
     }, 200);
-
+    const getSearchSuggestions = async () => {
+      try {
+        const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
+        const json = await data.json();
+        setSuggestions(json[1]);
+        dispatch(
+          cacheResults({
+            [searchQuery]: json[1],
+          })
+        );
+        setShowSuggestions(true);
+      } catch (error) {
+        console.error('Failed to fetch suggestions:', error);
+      }
+    };
     return () => {
       clearTimeout(timer);
     };
-  }, [searchQuery]);
-
-  const getSearchSuggestions = async () => {
-    try {
-      const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
-      const json = await data.json();
-      setSuggestions(json[1]);
-      dispatch(
-        cacheResults({
-          [searchQuery]: json[1],
-        })
-      );
-      setShowSuggestions(true);
-    } catch (error) {
-      console.error('Failed to fetch suggestions:', error);
-    }
-  };
+  }, [searchQuery, searchCache, dispatch]);
 
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());
