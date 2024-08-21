@@ -39,7 +39,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="bg-slate-50 px-6 py-4 w-52 mt-16 fixed top-0 left-0 h-full overflow-y-auto scrollbar-hidden">
+    <div className="bg-slate-50 z-50 px-6 py-4 w-52 mt-16 fixed top-0 left-0 h-full overflow-y-auto scrollbar-hidden">
       <ul className="space-y-2">
         {menuItems.map((item, index) => (
           <li

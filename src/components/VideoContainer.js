@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 function VideoContainer() {
   const [videos, setVideos] = useState([]);
+
   const getVideos = async () => {
     const data = await fetch(YOUTUBE_VIDEO_API);
     const json = await data.json();
@@ -14,16 +15,21 @@ function VideoContainer() {
   useEffect(() => {
     getVideos();
   }, []);
+
   return (
-    <div className="flex flex-wrap justify-center mt-12">
+    <div className="flex flex-wrap justify-center mt-6">
       {videos.length > 0 ? (
         videos.map((video) => (
-          <Link key={video.id} to={'/watch?v=' + video.id}>
+          <Link
+            key={video.id}
+            to={`/watch?v=${video.id}`}
+            className="p-2 md:p-3"
+          >
             <VideoCard info={video} />
           </Link>
         ))
       ) : (
-        <div>Loading videos...</div> // Display loading message while data is being fetched
+        <div>Loading videos...</div>
       )}
     </div>
   );

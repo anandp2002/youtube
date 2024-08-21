@@ -9,7 +9,7 @@ const MainContainer = () => {
   return (
     <div
       className={`overflow-y-auto mt-24 bg-slate-50 transition-all duration-300 ${
-        isMenuOpen ? 'lg:ml-52' : 'lg:ml-0'
+        isMenuOpen ? 'lg:ml-28' : 'lg:ml-0'
       }`}
     >
       <ButtonList />

@@ -17,7 +17,7 @@ const VideoCard = ({ info }) => {
   const viewCount = formatNumber(statistics.viewCount);
 
   return (
-    <div className="w-72 shadow-md rounded-md m-2 p-2">
+    <div className="w-64 shadow-md rounded-md m-2 p-2">
       <img
         className="rounded-md"
         alt="video thumbnail"
