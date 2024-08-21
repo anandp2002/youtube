@@ -4,6 +4,7 @@ import { closeMenu, openMenu, toggleMenu } from '../utils/appSlice';
 import { YOUTUBE_SEARCH_API } from '../utils/constants';
 import { cacheResults } from '../utils/searchSlice';
 import menu from '../images/menu.png';
+import closeMenuImage from '../images/closeMenuImage.png';
 import searchLens from '../images/searchLens.png';
 
 const Header = () => {
@@ -12,6 +13,7 @@ const Header = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const dispatch = useDispatch();
   const searchCache = useSelector((store) => store.search);
+  const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
 
   useEffect(() => {
     if (searchQuery === '') {
@@ -71,7 +73,7 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-red-100 shadow-md fixed top-0 left-0 right-0 z-50 ">
+    <div className="bg-slate-50 fixed top-0 left-0 right-0 z-50 ">
       <div className="grid grid-flow-col py-2 my-1">
         {/* Menu and Logo */}
         <div className="col-span-1 flex items-center">
@@ -79,7 +81,7 @@ const Header = () => {
             onClick={toggleMenuHandler}
             className="h-6 cursor-pointer"
             alt="Toggle Menu"
-            src={menu}
+            src={isMenuOpen ? closeMenuImage : menu}
           />
           <a href="/" className="ml-1">
             <img
@@ -95,14 +97,14 @@ const Header = () => {
           <div className="flex">
             <input
               type="text"
-              className="h-10 bg-gray-100 border border-gray-400 w-full md:w-9/12 lg:w-9/12 rounded-l-full p-2 pl-3 focus:outline-none focus:border-gray-600"
+              className="h-10 bg-slate-50 border border-gray-400 w-full md:w-9/12 lg:w-9/12 rounded-l-full p-2 pl-3 focus:outline-none focus:border-gray-600"
               value={searchQuery}
               placeholder="Search"
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => setShowSuggestions(true)}
               onBlur={() => setShowSuggestions(false)}
             />
-            <button className="h-10 border border-gray-400 rounded-r-full px-3 bg-gray-100 hover:bg-gray-200">
+            <button className="h-10 border border-gray-400 rounded-r-full px-3 bg-slate-50 hover:bg-slate-100">
               <img className="h-8" src={searchLens} alt="search" />
             </button>
           </div>

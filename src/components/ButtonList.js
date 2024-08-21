@@ -32,8 +32,8 @@ function ButtonList() {
   return (
     <div
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-      className={`flex overflow-x-scroll overflow-y-hidden whitespace-nowrap fixed right-0 top-16 p-3 bg-orange-200 ${
-        isMenuOpen ? 'left-40' : 'left-0'
+      className={`flex overflow-x-scroll overflow-y-hidden whitespace-nowrap fixed right-0 top-16 p-3 bg-slate-50 ${
+        isMenuOpen ? 'left-52' : 'left-0'
       }`}
     >
       {buttons.map((button, index) => (
