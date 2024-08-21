@@ -54,7 +54,7 @@ const Header = () => {
   //Check screen size and update iseMenuOpen
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
+      if (window.innerWidth < 1024) {
         dispatch(closeMenu());
       } else {
         dispatch(openMenu());

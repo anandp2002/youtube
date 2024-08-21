@@ -37,7 +37,7 @@ const LiveChat = () => {
 
   return (
     <>
-      <div className="flex p-2 mt-2 w-full border bg-slate-100 rounded-lg border-gray-900 h-[506px] overflow-y-scroll flex-col-reverse">
+      <div className="flex p-3 w-full border bg-slate-100 rounded-lg border-gray-900 h-[394px] overflow-y-scroll flex-col-reverse">
         <div>
           {chatMessages.map((c, index) => (
             <ChatMessage key={index} name={c.name} message={c.message} />
@@ -45,15 +45,15 @@ const LiveChat = () => {
         </div>
       </div>
 
-      <form className="m-2 p-2" onSubmit={handleSubmit}>
+      <form className="m-2" onSubmit={handleSubmit}>
         <input
           ref={inputRef} // Attach the ref to the input element
-          className="w-10/12 border border-gray-400"
+          className="w-10/12 rounded-lg border border-gray-400"
           value={liveMessage}
           onChange={(e) => setLiveMessage(e.target.value)}
           type="text"
         />
-        <button className="bg-green-300 w-2/12" type="submit">
+        <button className="rounded-lg  bg-green-300 w-2/12" type="submit">
           send
         </button>
       </form>

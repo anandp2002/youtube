@@ -15,13 +15,13 @@ const WatchPage = () => {
   const videoId = searchParams.get('v');
 
   return (
-    <div className="w-full mt-20 bg-slate-900">
+    <div className="w-full mt-20 pt-6 pl-6 ">
       <div className="flex w-full ">
-        <div className="pl-4">
+        <div className="">
           <iframe
-            className=" rounded-lg mt-2"
-            width="900"
-            height="506"
+            className=" rounded-lg"
+            width="700"
+            height="394"
             src={'https://www.youtube.com/embed/' + videoId}
             title="YouTube video player"
             frameBorder="0"

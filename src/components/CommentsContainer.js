@@ -15,7 +15,7 @@ const CommentsContainer = ({ videoId }) => {
   }, [videoId]);
 
   return (
-    <div className="m-8 mb-96">
+    <div className="">
       {comments.map((comment) => {
         const topLevelComment = comment.snippet.topLevelComment.snippet;
 
