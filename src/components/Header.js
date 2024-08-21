@@ -27,6 +27,7 @@ const Header = () => {
         getSearchSuggestions();
       }
     }, 200);
+
     const getSearchSuggestions = async () => {
       try {
         const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
@@ -42,6 +43,7 @@ const Header = () => {
         console.error('Failed to fetch suggestions:', error);
       }
     };
+
     return () => {
       clearTimeout(timer);
     };
@@ -89,11 +91,11 @@ const Header = () => {
         </div>
 
         {/* Search Bar */}
-        <div className="col-span-1 md:col-span-10 lg:col-span-10 ml-2">
+        <div className="col-span-1 md:col-span-10 lg:col-span-10 ml-2 relative">
           <div className="flex">
             <input
               type="text"
-              className="h-10 bg-gray-100 border border-gray-400 w-9/12 rounded-l-full p-2 pl-3 focus:outline-none focus:border-gray-600"
+              className="h-10 bg-gray-100 border border-gray-400 w-full md:w-9/12 lg:w-9/12 rounded-l-full p-2 pl-3 focus:outline-none focus:border-gray-600"
               value={searchQuery}
               placeholder="Search"
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -107,7 +109,7 @@ const Header = () => {
 
           {/* Suggestions Box */}
           {showSuggestions && suggestions.length > 0 && (
-            <div className="absolute w-9/12 bg-white border border-gray-300 rounded-lg shadow-lg mt-1 z-10">
+            <div className="absolute w-full md:w-9/12 lg:w-9/12 bg-white border border-gray-300 rounded-lg shadow-lg mt-1 z-10">
               <ul>
                 {suggestions.map((s, index) => (
                   <li
@@ -123,7 +125,7 @@ const Header = () => {
         </div>
 
         {/* User Icon */}
-        <div className="lg:col-span-1 md:col-span-10 col-span-10 flex items-center justify-end pr-2">
+        <div className="lg:col-span-1 md:col-span-10 col-span-10 flex items-center justify-end pr-2 ml-2">
           <img
             className="h-6 pr-2"
             alt="User Avatar"
