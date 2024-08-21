@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleMenu } from '../utils/appSlice';
+import { closeMenu, openMenu, toggleMenu } from '../utils/appSlice';
 import { YOUTUBE_SEARCH_API } from '../utils/constants';
 import { cacheResults } from '../utils/searchSlice';
 import menu from '../images/menu.png';
@@ -47,13 +47,30 @@ const Header = () => {
     };
   }, [searchQuery, searchCache, dispatch]);
 
+  //Check screen size and update iseMenuOpen
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        dispatch(closeMenu());
+      } else {
+        dispatch(openMenu());
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    // Call the function on initial render to set the initial state
+    handleResize();
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [dispatch]);
+
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());
   };
 
   return (
     <div className="bg-red-100 shadow-md fixed top-0 left-0 right-0 z-50 ">
-      <div className="grid grid-flow-col py-2 my-1 ml-1">
+      <div className="grid grid-flow-col py-2 my-1">
         {/* Menu and Logo */}
         <div className="col-span-1 flex items-center">
           <img
@@ -72,7 +89,7 @@ const Header = () => {
         </div>
 
         {/* Search Bar */}
-        <div className="col-span-10">
+        <div className="col-span-1 md:col-span-10 lg:col-span-10 ml-2">
           <div className="flex">
             <input
               type="text"
@@ -106,7 +123,7 @@ const Header = () => {
         </div>
 
         {/* User Icon */}
-        <div className="col-span-1 flex items-center justify-center">
+        <div className="lg:col-span-1 md:col-span-10 col-span-10 flex items-center justify-end pr-2">
           <img
             className="h-6 pr-2"
             alt="User Avatar"
