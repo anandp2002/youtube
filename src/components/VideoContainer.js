@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { YOUTUBE_VIDEO_API } from '../utils/constants';
 import VideoCard from './VideoCard';
 import { Link } from 'react-router-dom';
+import Shimmer from './Shimmer';
 
 function VideoContainer() {
   const [videos, setVideos] = useState([]);
@@ -29,7 +30,9 @@ function VideoContainer() {
           </Link>
         ))
       ) : (
-        <div>Loading videos...</div>
+        <div>
+          <Shimmer />
+        </div>
       )}
     </div>
   );
