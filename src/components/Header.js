@@ -11,20 +11,27 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1); // New state variable
   const dispatch = useDispatch();
   const searchCache = useSelector((store) => store.search);
   const isMenuOpen = useSelector((store) => store.app.isMenuOpen);
+
+  const handleSearch = (searchQuery) => {
+    console.log('Searching ' + searchQuery);
+  };
 
   useEffect(() => {
     if (searchQuery === '') {
       setSuggestions([]);
       setShowSuggestions(false);
+      setSelectedSuggestionIndex(-1); // Reset selection
       return;
     }
 
     const timer = setTimeout(() => {
       if (searchCache[searchQuery]) {
         setSuggestions(searchCache[searchQuery]);
+        setShowSuggestions(true);
       } else {
         getSearchSuggestions();
       }
@@ -46,10 +53,45 @@ const Header = () => {
       }
     };
 
+    // Reset selected suggestion when suggestions change
+    setSelectedSuggestionIndex(-1);
+
     return () => {
       clearTimeout(timer);
     };
   }, [searchQuery, searchCache, dispatch]);
+
+  // Handle keyboard navigation
+  const handleKeyDown = (e) => {
+    if (!showSuggestions || suggestions.length === 0) return;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setSelectedSuggestionIndex((prevIndex) =>
+          prevIndex < suggestions.length - 1 ? prevIndex + 1 : 0
+        );
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setSelectedSuggestionIndex((prevIndex) =>
+          prevIndex > 0 ? prevIndex - 1 : suggestions.length - 1
+        );
+        break;
+      case 'Enter':
+        if (
+          selectedSuggestionIndex >= 0 &&
+          selectedSuggestionIndex < suggestions.length
+        ) {
+          setSearchQuery(suggestions[selectedSuggestionIndex]);
+          setShowSuggestions(false);
+          // Optionally, you might want to perform a search here
+        }
+        break;
+      default:
+        break;
+    }
+  };
 
   //Check screen size and update iseMenuOpen
   useEffect(() => {
@@ -102,9 +144,16 @@ const Header = () => {
               placeholder="Search"
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => setShowSuggestions(true)}
-              onBlur={() => setShowSuggestions(false)}
+              onBlur={() => {
+                // Delay hiding to allow click events to register
+                setTimeout(() => setShowSuggestions(false), 100);
+              }}
+              onKeyDown={handleKeyDown} // Attach the keydown handler
             />
-            <button className="h-10 border border-gray-400 rounded-r-full px-3 bg-slate-50 hover:bg-slate-100">
+            <button
+              onClick={() => handleSearch(searchQuery)}
+              className="h-10 border border-gray-400 rounded-r-full px-3 bg-slate-50 hover:bg-slate-100"
+            >
               <img className="h-8" src={searchLens} alt="search" />
             </button>
           </div>
@@ -116,7 +165,16 @@ const Header = () => {
                 {suggestions.map((s, index) => (
                   <li
                     key={index}
-                    className="p-2 cursor-pointer hover:bg-gray-200"
+                    className={`p-2 cursor-pointer hover:bg-gray-200 ${
+                      index === selectedSuggestionIndex ? 'bg-gray-200' : ''
+                    }`}
+                    onMouseEnter={() => setSelectedSuggestionIndex(index)} // Optional: highlight on hover
+                    onMouseLeave={() => setSelectedSuggestionIndex(-1)} // Optional: remove highlight on mouse leave
+                    onMouseDown={() => {
+                      // Use onMouseDown instead of onClick to ensure it fires before onBlur
+                      setSearchQuery(s);
+                      setShowSuggestions(false);
+                    }}
                   >
                     {s}
                   </li>
